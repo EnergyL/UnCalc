@@ -1,18 +1,13 @@
 #include "unl_int.h"
 #include <iostream>
 
-unl_int::~unl_int()
-{
-	delete _dig;
-}
-
 unl_int::unl_int(const char *new_dig)
 {
 	size_t *len = new size_t;				//Для хранения длины
 	*len = strlen(new_dig);					//len - длина массива new_dig
 
-	//Записываем по 1 из массива в вектор
-	for (size_t i = 0; i < *len; i++)
+	//Записываем по 1 из массива в вектор в обратном порядке
+	for (int i = *len - 1; i >= 0; --i)
 	{
 		//Добавляем по 1 символу в конец вектора, преобразуя в int
 		_dig->push_back(*(new_dig+i) TO_INT);
@@ -26,9 +21,10 @@ unl_int::unl_int(std::string *new_dig)
 	size_t *len = new size_t;				//Для хранения длины
 	*len = new_dig->size();					//len - длина строки new_dig
 
-	//Записываем по 1 из массива в вектор
-	for (size_t i = 0; i < *len; i++)
+	//Записываем по 1 из массива в вектор в обратном порядке
+	for (int i = *len - 1; i >= 0; i--)
 	{
+		//Добавляем по 1 символу в конец вектора, преобразуя в int
 		_dig->push_back(new_dig->at(i) TO_INT);
 	}
 
@@ -42,9 +38,157 @@ unl_int::unl_int(int new_dig)
 	unl_int::unl_int(buff);					//Вызываем конструктор для string
 }
 
+void unl_int::addNulls(unl_int *_dig2)
+{
+	
+	//Длины чисел
+	size_t size1 = this->size();
+    size_t size2 = _dig2->size();		
+	unl_int *ptr1, *ptr2;					//Указатели
+	size_t diff = 0;						//Разница длин
+
+	//ptr1 - всегда большее число, ptr2 - меньшее
+	if (size1 > size2)
+	{
+		ptr1 = this;
+		ptr2 = _dig2;
+	}
+	else if (size1 < size2)
+	{
+		ptr1 = _dig2;
+		ptr2 = this;
+	}
+	//Если равны, то ничего добавлять не надо
+	else return;	
+
+	//Находим разницу длин между числами и добавляем нули
+	diff = ptr1->size() - ptr2->size();
+	for (size_t i = 0; i < diff; i++) ptr2->push_back(0);
+
+	return;
+}
+
+std::string unl_int::to_string()
+{
+	std::string result;						//Результат
+	size_t *len = new size_t;				//Длина числа
+
+	//Присваиваем длину числа
+	*len = this->size();					
+
+	//Добавляем по 1 символу в конец строки, преобразуя в char
+	for (int i = *len - 1; i >= 0; i--) result.push_back(this->at(i) TO_CHAR);
+
+	//Чистим память, возвращаем result
+	delete len;
+	return result;
+}
+void unl_int::push_front(char _new_dig)
+{
+	_dig->insert(_dig->begin(), _new_dig);
+}
+void unl_int::push_back(char _new_dig)
+{
+	_dig->push_back(_new_dig);				//Вставляем цифру в конец числа
+}
+void unl_int::insert(size_t pos, char _new_dig)
+{
+	_dig->insert(_dig->begin() + pos, _new_dig);
+}
 char unl_int::at(size_t num)
 {
 	return _dig->at(num);					//Возвращаем нужное значение
 }
+size_t unl_int::size()
+{
+	return _dig->size();					//Возвращаем длину числа
+}
+
+bool unl_int::operator == (unl_int _dig2)
+{
+	//Длины чисел
+	size_t size1 = this->size(), size2 = _dig2.size();
+	//Для начала сравним длины чисел
+	if (size1 == size2)
+	{
+		//Сверим на равенство каждую цифру числа (для условия цикла берем любое значене size, т.к size1 = size2)
+		for (size_t i = 0; i < size1; i++)
+		{
+			//Если не верно, то возвращаем false
+			if (this->at(i) != _dig2.at(i)) return false;
+		}
+		//Каждая цифра совпала, возвращаем true
+		return true;
+	}
+	//Длины чисел не равны
+	return false;
+}
+bool unl_int::operator != (unl_int _dig2)
+{
+	return !(*this == _dig2);				//Возвращает значение, обратное ==
+}
+bool unl_int::operator < (unl_int _dig2)
+{
+	//Длины чисел
+	size_t size1 = this->size(), size2 = _dig2.size();
+	//Для начала сравним длины чисел
+	if (size1 < size2) return true;
+	if (size1 > size2) return false;
+	//Сверим на равенство каждую цифру числа (для условия цикла берем любое значене size, т.к size1 = size2)
+	for (size_t i = 0; i < size1; i++)
+	{
+		//Если меньше, то возвращаем true
+		if (this->at(i) < _dig2.at(i)) return true;
+	}
+	//Цикл закончился, значит число > или =
+	return false;
+}
+bool unl_int::operator > (unl_int _dig2)
+{
+	//Возвращаем обратный результат логического сложения величин < и ==
+	//T.е для того чтобы получить true, необходимо чтобы < и == были false
+	return !((*this < _dig2) | (*this == _dig2));	
+}
+
+unl_int unl_int::operator + (unl_int _dig2)
+{
+	unl_int result;							//Для хранения результата
+	char *buff = new char;					//Буффер для хранения чисел "в уме"
+	*buff = 0;
+	char *sum = new char;					//Буффер для хранения суммы 2 цифр
+	size_t *len = new size_t;				//Длина чисел
+
+	//Добавляем нули в начало, для равенства длин чисел, т.е 00123 например, если второе чилсо 5-ти значное
+	addNulls(&_dig2);
+
+	//Присваиваем len длину числа
+	*len = this->size();
+	//В цикле по каждой цифре складывем, записываем в result
+	for (size_t i = 0; i < *len; i++)
+	{
+		//Сложение + "ум"
+		*sum = this->at(i) + _dig2.at(i) + *buff;
+
+		//Обнуляем "ум"
+		*buff = 0;
+
+		//Если сумма > 9, то 1 пишем в "ум", отнимаем 10 и пишем в sum;
+		if (*sum > 9)
+		{
+			*sum -= 10;
+			*buff = 1;
+		}
+		result.push_back(*sum);		//Пишем в result
+		
+	}
+	//Если осталась 1 в "уме", складываем с последней цифрой 
+	result.push_back(*buff);
+
+	//Чистим память
+	delete buff, len, sum;
+	return result;
+}
+
+
 
 
