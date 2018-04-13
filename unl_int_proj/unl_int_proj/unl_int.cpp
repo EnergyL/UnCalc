@@ -1,44 +1,19 @@
 #include "unl_int.h"
 #include <iostream>
 
-unl_int::unl_int							(const char *_new_dig)
+unl_int::unl_int(std::string _new_dig)
 {
-	u_size_t *len = new u_size_t;			//Для хранения длины
-	*len = strlen(_new_dig);				//len - длина массива new_dig
-
-	//По умолчанию - нуль
-	if (*len == 0) _dig->push_back(0);
-	else
-	{
-		//Записываем по 1 из массива в вектор в обратном порядке
-		for (s_size_t i = *len - 1; i >= 0; --i)
-		{
-			//Добавляем по 1 символу в конец вектора, преобразуя в int
-			_dig->push_back(*(_new_dig + i) TO_INT);
-		}
-	}
-	
-	delete len;
+	*this = _new_dig;
 	return;
 }
-unl_int::unl_int							(std::string _new_dig)
+unl_int::unl_int(const char *_new_dig)
 {
-	u_size_t *len = new u_size_t;			//Для хранения длины
-	*len = _new_dig.size();					//len - длина строки new_dig
-
-	//Записываем по 1 из массива в вектор в обратном порядке
-	for (s_size_t i = *len - 1; i >= 0; i--)
-	{
-		//Добавляем по 1 символу в конец вектора, преобразуя в int
-		_dig->push_back(_new_dig.at(i) TO_INT);
-	}
-
-	delete len;
+	*this = _new_dig;
 	return;
 }
-unl_int::unl_int							(int _new_dig)
+unl_int::unl_int(int _new_dig)
 {
-	//Переписать
+	*this = _new_dig;
 	return;
 }
 
@@ -187,6 +162,60 @@ bool unl_int::operator >					(unl_int _dig2)
 	return !((*this < _dig2) | (*this == _dig2));	
 }
 
+unl_int unl_int::operator =					(std::string _new_dig)
+{
+	u_size_t *len = new u_size_t;			//Для хранения длины
+	*len = _new_dig.size();					//len - длина строки new_dig
+
+	//Очищаем
+	_dig->clear();
+
+	//Записываем по 1 из массива в вектор в обратном порядке
+	for (s_size_t i = *len - 1; i >= 0; i--)
+	{
+		//Добавляем по 1 символу в конец вектора, преобразуя в int
+		_dig->push_back(_new_dig.at(i) TO_INT);
+	}
+
+	delete len;
+	return *this;
+}
+unl_int unl_int::operator =					(char _new_dig)
+{
+	//Очищаем, присваивем цифру
+	_dig->clear();
+	_dig->push_back(_new_dig);
+
+	return *this;
+}
+unl_int unl_int::operator =					(const char *_new_dig)
+{
+	u_size_t *len = new u_size_t;			//Для хранения длины
+	*len = strlen(_new_dig);				//len - длина массива new_dig
+
+	//Очищаем
+	_dig->clear();
+
+	//Записываем по 1 из массива в вектор в обратном порядке
+	for (s_size_t i = *len - 1; i >= 0; --i)
+	{
+		//Добавляем по 1 символу в конец вектора, преобразуя в int
+		_dig->push_back(*(_new_dig + i) TO_INT);
+	}
+
+	delete len;
+	return *this;
+}
+unl_int unl_int::operator =					(int _new_dig)
+{
+	std::string *buff = new std::string();		//Буффер для смены типа
+	*buff = std::to_string(_new_dig);			//Преобразовываем из int в string
+	*this = *buff;								//Обрабатываем как string
+
+	delete buff;
+	return *this;
+}
+
 unl_int unl_int::operator +					(unl_int _dig2)
 {
 	unl_int result;							//Для хранения результата
@@ -317,7 +346,7 @@ unl_int unl_int::operator *					(unl_int _dig2)
 			//Обнуляем число в "уме"
 			*buff = 0;
 
-			//Если произведение > 9, то десятки пишем в "ум", единицы в mul;
+			//Если произведение > 9, то десятки пишем в "ум", а единицы в mul;
 			if (*mul > 9)
 			{
 				*buff = *mul / 10;
@@ -327,6 +356,9 @@ unl_int unl_int::operator *					(unl_int _dig2)
 			//Добавляем в buff_result
 			buff_result->push_back(*mul);
 		}
+		//Если что - то осталось в buff, дописываем это в конец
+		buff_result->push_back(*buff);
+
 		//Складываем с общим результатом, предварительно "сдвинув" на 1 разряд
 		for (u_size_t k = 0; k < i; k++)
 		{

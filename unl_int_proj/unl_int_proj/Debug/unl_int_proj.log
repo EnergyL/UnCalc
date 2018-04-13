@@ -1,11 +1,7 @@
-﻿  main.cpp
-  Создание кода...
-  Компиляция...
-  unl_int.cpp
-e:\forwindows\gitprojects\uncalc\unl_int_proj\unl_int_proj\unl_int.cpp(33): warning C4244: аргумент: преобразование "s_size_t" в "unsigned int", возможна потеря данных
-e:\forwindows\gitprojects\uncalc\unl_int_proj\unl_int_proj\unl_int.cpp(109): warning C4244: аргумент: преобразование "u_size_t" в "int", возможна потеря данных
-e:\forwindows\gitprojects\uncalc\unl_int_proj\unl_int_proj\unl_int.cpp(113): warning C4244: аргумент: преобразование "u_size_t" в "int", возможна потеря данных
-e:\forwindows\gitprojects\uncalc\unl_int_proj\unl_int_proj\unl_int.cpp(137): warning C4244: аргумент: преобразование "u_size_t" в "unsigned int", возможна потеря данных
-  Создание кода...
-  unl_int_proj.vcxproj -> E:\ForWindows\GitProjects\UnCalc\unl_int_proj\Debug\unl_int_proj.exe
-  unl_int_proj.vcxproj -> E:\ForWindows\GitProjects\UnCalc\unl_int_proj\Debug\unl_int_proj.pdb (Full PDB)
+﻿  unl_int.cpp
+e:\forwindows\projects\unl_int_proj\unl_int_proj\unl_int.cpp(84): warning C4244: аргумент: преобразование "u_size_t" в "int", возможна потеря данных
+e:\forwindows\projects\unl_int_proj\unl_int_proj\unl_int.cpp(88): warning C4244: аргумент: преобразование "u_size_t" в "int", возможна потеря данных
+e:\forwindows\projects\unl_int_proj\unl_int_proj\unl_int.cpp(112): warning C4244: аргумент: преобразование "u_size_t" в "unsigned int", возможна потеря данных
+e:\forwindows\projects\unl_int_proj\unl_int_proj\unl_int.cpp(177): warning C4244: аргумент: преобразование "s_size_t" в "unsigned int", возможна потеря данных
+  unl_int_proj.vcxproj -> E:\ForWindows\Projects\unl_int_proj\Debug\unl_int_proj.exe
+  unl_int_proj.vcxproj -> E:\ForWindows\Projects\unl_int_proj\Debug\unl_int_proj.pdb (Full PDB)
