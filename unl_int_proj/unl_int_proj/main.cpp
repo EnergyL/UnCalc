@@ -6,7 +6,10 @@ using namespace std;
 
 int main()
 {
-	unl_int a("100"), b("49"), c = a - b;
+	unl_int a("123");
+	unl_int b("45");
+	
+	unl_int c = a * b;
 	cout << c.to_string().c_str()<<endl;
 	return 0;
 }
