@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-	unl_int a("999"), b("999"), c = a + b;
+	unl_int a("100"), b("49"), c = a - b;
 	cout << c.to_string().c_str()<<endl;
 	return 0;
 }

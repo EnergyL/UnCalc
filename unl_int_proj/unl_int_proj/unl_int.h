@@ -1,18 +1,14 @@
 #pragma once
-#include <vector>
-#include <string>
-
-//Отнимаем '0', тем самым преобразуя char в int
-#define TO_INT - '0'	
-//Прибавляем '0', тем самым преобразуя int в char
-#define TO_CHAR + '0'
+#include "header.h"
 
 class unl_int
 {
 private:
 
 	std::vector <char> *_dig = new std::vector<char>();
-	void addNulls(unl_int*);
+
+	static void addNulls(unl_int*,unl_int*);
+	static void eraseNulls(unl_int*);
 
 public:
 	
@@ -25,16 +21,19 @@ public:
 	std::string to_string();			//Преобразование из unl_int в string
 	void push_front(char);				//Вставить цифру в начало
 	void push_back(char);				//Вставить цифру в конец
-	void insert(size_t,char);			//Вставить цифру на позицию
-	char at(size_t);					//Возвращает определенный элемент вектора
-	size_t size();						//Возвращает длину числа
+	void insert(u_size_t,char);			//Вставить цифру
+	void erase(u_size_t pos);			//Стереть цифру
+	char at(u_size_t);					//Возвращает определенный элемент вектора
+	u_size_t size();					//Возвращает длину числа
 
+	//Операторы
 	bool unl_int::operator == (unl_int);
 	bool unl_int::operator != (unl_int);
 	bool unl_int::operator < (unl_int);
 	bool unl_int::operator > (unl_int);
 	
 	unl_int operator + (unl_int);
+	unl_int operator - (unl_int);
 
 
 }typedef unlimited_int; //typedef
