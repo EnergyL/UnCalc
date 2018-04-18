@@ -28,10 +28,12 @@ public:
 	u_size_t size					();								//Возвращает длину числа
 
 	//Операторы
-	bool unl_int::operator ==		(unl_int);
-	bool unl_int::operator !=		(unl_int);
-	bool unl_int::operator <		(unl_int);
-	bool unl_int::operator >		(unl_int);
+	bool operator ==				(unl_int);
+	bool operator !=				(unl_int);
+	bool operator <					(unl_int);
+	bool operator <=				(unl_int);
+	bool operator >					(unl_int);
+	bool operator >=				(unl_int);
 
 	unl_int operator =				(std::string);
 	unl_int operator =				(char);
@@ -41,6 +43,10 @@ public:
 	unl_int operator +				(unl_int);
 	unl_int operator -				(unl_int);
 	unl_int operator *				(unl_int);
+	unl_int operator /				(unl_int);
+
+	//Функции
+	unl_int inv						(u_size_t);						//Возведение в степень
 
 
 }typedef unlimited_int; //typedef
