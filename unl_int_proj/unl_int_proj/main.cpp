@@ -13,8 +13,8 @@ int main()
 {
 	START_TIMER;
 	unl_int a = "4", b = "5";
-	unl_int c = a / b;
-	cout << c.to_string().c_str()<< endl;
+	a = unl_int().factorial(5);
+	cout << a.to_string().c_str()<< endl;
 	STOP_TIMER;
 	STD_OUT_TIMER;
 	return 0;

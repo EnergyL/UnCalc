@@ -47,6 +47,7 @@ public:
 
 	//Функции
 	unl_int inv						(u_size_t);						//Возведение в степень
+	unl_int factorial				(u_size_t);						//Факториал
 
 
 }typedef unlimited_int; //typedef
