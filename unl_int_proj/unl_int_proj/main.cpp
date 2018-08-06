@@ -12,7 +12,7 @@ using namespace std;
 int main()
 {
 	START_TIMER;
-	unl_int a = "30", b = "15";
+	unl_int a = "4", b = "5";
 	unl_int c = a / b;
 	cout << c.to_string().c_str()<< endl;
 	STOP_TIMER;

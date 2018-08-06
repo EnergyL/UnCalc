@@ -38,7 +38,7 @@ public:
 	unl_int operator =				(std::string);
 	unl_int operator =				(char);
 	unl_int operator =				(const char*);
-	unl_int operator=				(int _new_dig);
+	unl_int operator =				(int _new_dig);
 
 	unl_int operator +				(unl_int);
 	unl_int operator -				(unl_int);

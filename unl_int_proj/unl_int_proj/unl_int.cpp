@@ -110,6 +110,11 @@ u_size_t unl_int::size						()
 
 bool unl_int::operator ==					(unl_int _dig2)
 {
+	//Очищаем лишние нули, если там только нуль, его оставляем
+	eraseNulls(this);
+	if (this->size() == 0) this->push_back(0);
+	eraseNulls(&_dig2);
+	if (_dig2.size() == 0) _dig2.push_back(0);
 	//Длины чисел
 	u_size_t size1 = this->size();
 	u_size_t size2 = _dig2.size();
@@ -134,6 +139,11 @@ bool unl_int::operator !=					(unl_int _dig2)
 }
 bool unl_int::operator <					(unl_int _dig2)
 {
+	//Очищаем лишние нули, если там только нуль, его оставляем
+	eraseNulls(this);
+	if (this->size() == 0) this->push_back(0);
+	eraseNulls(&_dig2);
+	if (_dig2.size() == 0) _dig2.push_back(0);
 	//Длины чисел
 	u_size_t size1 = this->size();
 	u_size_t size2 = _dig2.size();
@@ -362,6 +372,7 @@ unl_int unl_int::operator *					(unl_int _dig2)
 		}
 		//Если что - то осталось в buff, дописываем это в конец
 		buff_result.push_back(buff);
+		buff = 0;
 
 		//Складываем с общим результатом, предварительно "сдвинув" на 1 разряд
 		for (u_size_t k = 0; k < i; k++)
@@ -379,15 +390,14 @@ unl_int unl_int::operator *					(unl_int _dig2)
 }
 unl_int unl_int::operator /					(unl_int _dig2)
 {
+	if (*this == 0) return unl_int(0);
 	unl_int result;							//Для хранения результата
 	unl_int diff1, diff2;					//Часть делимого и цифра результата, умноженная на делитель (вычитаемое)
-	u_size_t size1 = 0;						//Длина числа
 	u_size_t i = 0;							//Номер цифры, которую нужно добавить
 	u_size_t j = 1;							/*Множитель, на который домнажается делитель, 
 											чтобы получить максимально возможое вычитаемое*/
 	
-	size1 = this->size();					//Присваиваем длину
-	i = size1;								//Начинаем с конца
+	i = this->size();						//Присваиваем длину
 
 	for (i; i > 0; i--)
 	{
@@ -401,7 +411,7 @@ unl_int unl_int::operator /					(unl_int _dig2)
 			continue;
 		}
 
-		//Обнуляем множитель
+		//Обновляем множитель
 		j = 1;
 
 		//Пока не больше, чем часть делимого
