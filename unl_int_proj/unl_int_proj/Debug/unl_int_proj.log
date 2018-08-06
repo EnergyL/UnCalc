@@ -1,4 +1,2 @@
-﻿  main.cpp
-cl : командная строка warning D9028: сбой минимальной повторной сборки, возврат к обычной сборке
-  unl_int_proj.vcxproj -> E:\ForWindows\GitProjects\UnCalc\unl_int_proj\Debug\unl_int_proj.exe
+﻿  unl_int_proj.vcxproj -> E:\ForWindows\GitProjects\UnCalc\unl_int_proj\Debug\unl_int_proj.exe
   unl_int_proj.vcxproj -> E:\ForWindows\GitProjects\UnCalc\unl_int_proj\Debug\unl_int_proj.pdb (Full PDB)

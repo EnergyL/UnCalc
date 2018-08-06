@@ -442,3 +442,12 @@ unl_int unl_int::inv						(u_size_t num)
 	}
 	return *this;
 }
+unl_int unl_int::factorial					(u_size_t num)
+{
+	unl_int res = "1";
+	for (u_size_t i = 1; i <= num; i++)
+	{
+		res = res * i;
+	}
+	return res;
+}
